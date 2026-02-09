@@ -25,10 +25,7 @@ The idea of this project is to introduce own rules that simplify the usage of Qt
 
 ## Current status
 
-These rules were tested with Bazel 8.x.
-There is a chance that you also get this working with Bazel 7.x.
-If you need support for older versions of Bazel, please check out an older state of this repository.
-Initially, this repository had support for Bazel 4.x.
+These rules were tested with **Bazel 9.0.0**.
 
 When using these rules,
 a prebuild version of Qt is fetched from [download.qt.io](https://download.qt.io/).
