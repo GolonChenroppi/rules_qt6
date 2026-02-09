@@ -5,7 +5,8 @@
 
 # Other mirror
 # https://mirror.netcologne.de/qtproject/online/qtsdkrepository/
-QT_BASE_DOWNLOAD_URL = "https://download.qt.io/online/qtsdkrepository/"
+# QT_BASE_DOWNLOAD_URL = "https://download.qt.io/online/qtsdkrepository/"
+QT_BASE_DOWNLOAD_URL = "https://mirror.netcologne.de/qtproject/online/qtsdkrepository/"
 
 QT_MODULES = {
     "linux": {

@@ -160,7 +160,12 @@ def _download_qt_impl(rctx):
 
     # Write out bazel workspace files
     rctx.file("WORKSPACE", content = "")
-    rctx.file("MODULE.bazel", content = "module(name = {})".format(rctx.attr.name))
+    
+    # Bazel 9: Generated repo MUST have its own dependencies in MODULE.bazel
+    rctx.file("MODULE.bazel", content = """module(name = "{name}")
+bazel_dep(name = "rules_cc", version = "0.2.16")
+bazel_dep(name = "platforms", version = "1.0.0")
+""".format(name = rctx.attr.name))
 
     # Write the qt_libraries definition file from the same directory as the build_file
     build_file_dir = "/".join(str(rctx.attr.build_file).split("/")[:-1])

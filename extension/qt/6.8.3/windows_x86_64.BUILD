@@ -1,6 +1,6 @@
 load("@rules_cc//cc:cc_import.bzl", "cc_import")
 load("@rules_cc//cc:cc_library.bzl", "cc_library")
-load("@rules_qt//:qt_libraries.bzl", "QT_LIBRARIES")
+load(":qt_libraries.bzl", "QT_LIBRARIES")
 
 # Create a mapping of available libraries by checking what .lib files exist
 _available_libs = glob(["lib/Qt6*.lib"])

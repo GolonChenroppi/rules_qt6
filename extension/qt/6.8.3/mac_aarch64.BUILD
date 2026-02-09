@@ -1,5 +1,5 @@
 load("@rules_cc//cc:cc_library.bzl", "cc_library")
-load("@rules_qt//:qt_libraries.bzl", "QT_LIBRARIES")
+load(":qt_libraries.bzl", "QT_LIBRARIES")
 
 # Create a mapping of available frameworks by checking for header files in each framework
 # We look for any file in the Headers directory to determine if a framework exists
