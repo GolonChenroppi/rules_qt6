@@ -23,6 +23,8 @@ bazel build --config=gcc13 //horch:main
 bazel run --config=gcc13 //moc_test:main
 bazel build --config=gcc13 //qml_demo:qt_demo
 bazel build --config=gcc13 //uic_demo:main
+# This target tests proper linking of QtQml, QtQuick and their internal dependencies (QtQmlIntegration, etc.)
+bazel build --config=gcc13 //qml_hello:qml_hello
 ```
 
 You should also be able to run this binary:

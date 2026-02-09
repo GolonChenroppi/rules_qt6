@@ -1,0 +1,20 @@
+load("@rules_qt//:qt.bzl", "qt_cc_binary", "qt_resource")
+
+qt_resource(
+    name = "qml_resources",
+    files = ["main.qml"],
+)
+
+qt_cc_binary(
+    name = "qml_hello",
+    srcs = ["main.cpp"],
+    deps = [
+        ":qml_resources",
+        "@rules_qt//:qt_core",
+        "@rules_qt//:qt_gui",
+        "@rules_qt//:qt_qml",
+        "@rules_qt//:qt_quick",
+        # Explicitly testing dependencies that caused issues in 6.8.3
+        # (QtQmlIntegration, QtQmlMeta are transitive deps of these)
+    ],
+)
