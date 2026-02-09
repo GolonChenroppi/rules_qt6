@@ -31,6 +31,21 @@ _framework_names = {library_name: ("Qt" + library_name[3:] if library_name.start
     if _framework_names[library_name] in _available_framework_names
 ]
 
+# --- FIX: Explicitly define QtQmlIntegration for macOS ---
+# It often resides in lib/QtQmlIntegration.framework OR just as headers in include/
+# We try to cover the framework case if it exists, otherwise fallback to manual definition isn't easy without exact path knowledge.
+# Assuming standard Qt layout where it might be a static lib or header-only part of Qml.
+# However, if it is missing from _available_framework_names, we need to handle it.
+
+# Let's try to define it pointing to the standard include directory if frameworks fail
+cc_library(
+    name = "qt_qml_integration_mac",
+    hdrs = glob(["include/QtQmlIntegration/**"], allow_empty = True),
+    includes = ["include", "include/QtQmlIntegration"],
+    target_compatible_with = ["@platforms//os:osx"],
+    visibility = ["//visibility:public"],
+)
+
 # Create stub libraries for Qt modules that don't exist on macOS
 # This prevents build failures when code depends on `:qt` which includes all modules
 [
@@ -41,7 +56,7 @@ _framework_names = {library_name: ("Qt" + library_name[3:] if library_name.start
         tags = ["manual"],  # Don't build unless explicitly requested
     )
     for name, include_folder, library_name, _ in QT_LIBRARIES
-    if _framework_names[library_name] not in _available_framework_names
+    if _framework_names[library_name] not in _available_framework_names and name != "qml_integration"
 ]
 
 cc_library(

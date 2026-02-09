@@ -40,6 +40,15 @@ _available_lib_names = [lib.replace("lib/", "").replace(".lib", "") for lib in _
     if library_name in _available_lib_names
 ]
 
+# --- FIX: Explicitly handle QtQmlIntegration which might not have a .lib file or is header-only ---
+cc_library(
+    name = "qt_qml_integration_windows",
+    hdrs = glob(["include/QtQmlIntegration/**"]),
+    includes = ["include", "include/QtQmlIntegration"],
+    target_compatible_with = ["@platforms//os:windows"],
+    visibility = ["//visibility:public"],
+)
+
 # Create stub libraries for Qt modules that don't exist on Windows
 # This prevents build failures when code depends on `:qt` which includes all modules
 [
@@ -50,7 +59,7 @@ _available_lib_names = [lib.replace("lib/", "").replace(".lib", "") for lib in _
         tags = ["manual"],  # Don't build unless explicitly requested
     )
     for name, _, library_name, _ in QT_LIBRARIES
-    if library_name not in _available_lib_names
+    if library_name not in _available_lib_names and name != "qml_integration" # Exclude qml_integration as we defined it above
 ]
 
 cc_library(
